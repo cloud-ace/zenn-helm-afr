@@ -1,0 +1,23 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+metadata:
+  name: helm-deploy-gke
+profiles:
+  - name: dev
+    deploy:
+      helm:
+        releases:
+          - name: dev
+            remoteChart: oci://asia-northeast1-docker.pkg.dev/ca-tominaga/ifrit/nginx
+            version: 0.1.0
+            valuesFiles:
+              - values.develop.yaml
+  - name: prod
+    deploy:
+      helm:
+        releases:
+          - name: prod
+            remoteChart: oci://asia-northeast1-docker.pkg.dev/ca-tominaga/ifrit/nginx
+            version: 0.1.0
+            valuesFiles:
+              - values.prod.yaml

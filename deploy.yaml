@@ -1,0 +1,27 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: helm-deploy-gke
+description: main application pipeline
+serialPipeline:
+  stages:
+    - targetId: gke-dev
+      profiles: [dev]
+    - targetId: gke-prod
+      profiles: [prod]
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: gke-dev
+description: GKE development environment
+gke:
+  cluster: projects/ca-tominaga/locations/asia-northeast1/clusters/crystal
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: gke-prod
+description: GKE production environment
+gke:
+  cluster: projects/ca-tominaga/locations/asia-northeast1/clusters/crystal
